@@ -15,6 +15,8 @@ import io.micrometer.common.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -124,6 +126,7 @@ public class SetMealController {
      * @return
      */
     @PutMapping
+    @CacheEvict(value = "setMealCache", allEntries = true)//删除分类下的所有缓存
     public Result<String> modifySetMeal(@RequestBody SetMealDto setMealDto) {
         log.info("修改套餐：{}", setMealDto.toString());
         setMealService.updateSetMealWithDishes(setMealDto);
@@ -137,13 +140,20 @@ public class SetMealController {
      * @return
      */
     @DeleteMapping
+    @CacheEvict(value = "setMealCache", allEntries = true)//删除分类下的所有缓存
     public Result<String> deleteSetMeal(@RequestParam List<Long> ids) {
         log.info("删除套餐 ids = {}", ids);
         setMealService.deleteSetMealWithDishes(ids);
         return Result.success("套餐删除成功");
     }
 
+    /**
+     * 查询套餐
+     * @param setMeal
+     * @return
+     */
     @GetMapping("/list")
+    @Cacheable(value = "setMealCache", key = "#setMeal.categoryId + '_' + #setMeal.status")
     public Result<List<SetMeal>> listSetMeals(SetMeal setMeal) {
         log.info("查询套餐：{}", setMeal.toString());
 
