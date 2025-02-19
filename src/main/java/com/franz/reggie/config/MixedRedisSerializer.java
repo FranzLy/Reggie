@@ -1,12 +1,22 @@
 package com.franz.reggie.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.SerializationException;
 import java.nio.charset.StandardCharsets;
 
 public class MixedRedisSerializer implements RedisSerializer<Object> {
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper;
+
+    public MixedRedisSerializer() {
+        this.objectMapper = new ObjectMapper();
+        // 注册支持 Java 8 日期时间模块
+        this.objectMapper.registerModule(new JavaTimeModule());
+        // 禁用时间戳格式，改为 ISO-8601 日期字符串
+        this.objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+    }
 
     @Override
     public byte[] serialize(Object value) throws SerializationException {

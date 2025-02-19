@@ -1,11 +1,13 @@
 package com.franz.reggie;
 
+import com.franz.reggie.dto.DishDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.*;
 import redis.clients.jedis.Jedis;
 
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -261,6 +263,19 @@ class ReggieApplicationTests {
         // 清空整个 ZSet
         redisTemplate.delete(zSetKey);
         System.out.println("Leaderboard after deletion: " + zSetOperations.rangeWithScores(zSetKey, 0, -1));
+    }
+
+    @Test
+    void testDishDtoSetOperations() {
+//        DishDto dish = null;
+//        redisTemplate.opsForValue().set("dish:1", dish, 5, TimeUnit.MINUTES);
+
+        LocalDateTime now = LocalDateTime.now();
+        redisTemplate.opsForValue().set("dish:2", now, 5, TimeUnit.MINUTES);
+
+//        DishDto storedDish = (DishDto) redisTemplate.opsForValue().get("dish:1");
+//        System.out.println("Stored Dish: " + storedDish);
+
     }
 
 }
