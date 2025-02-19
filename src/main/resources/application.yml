@@ -74,3 +74,12 @@ mybatis-plus:
 
 reggie:
   path: E:\LearningLog\Coding\JavaStudy\Reggie\Reggie\image\
+
+springdoc:
+  api-docs:
+    enabled: true
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
+    tags-sorter: alpha
