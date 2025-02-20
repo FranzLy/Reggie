@@ -115,18 +115,18 @@
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
         </dependency>
-<!--&lt;!&ndash;使用mysql主从复制&ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>org.apache.shardingsphere</groupId>-->
-<!--            <artifactId>shardingsphere-jdbc-core-spring-boot-starter</artifactId>-->
-<!--            <version>5.4.0</version>-->
-<!--        </dependency>-->
+        <!--&lt;!&ndash;使用mysql主从复制&ndash;&gt;-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.apache.shardingsphere</groupId>-->
+        <!--            <artifactId>shardingsphere-jdbc-core-spring-boot-starter</artifactId>-->
+        <!--            <version>5.4.0</version>-->
+        <!--        </dependency>-->
+<!--        TODO 引入该依赖生成swagger接口文档，暂时调试未成功，待排查-->
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            <version>2.3.0</version>
+            <version>2.3.0</version> <!-- 请使用最新版本 -->
         </dependency>
-
 
     </dependencies>
 
